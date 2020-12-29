@@ -1,0 +1,128 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "eTims": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/e-tims",
+      "sourceRoot": "projects/e-tims/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/eTims",
+            "index": "projects/e-tims/src/index.html",
+            "main": "projects/e-tims/src/main.ts",
+            "polyfills": "projects/e-tims/src/polyfills.ts",
+            "tsConfig": "projects/e-tims/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/e-tims/src/favicon.ico",
+              "projects/e-tims/src/assets"
+            ],
+            "styles": [
+              "projects/e-tims/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/e-tims/src/environments/environment.ts",
+                  "with": "projects/e-tims/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "eTims:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "eTims:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "eTims:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/e-tims/src/test.ts",
+            "polyfills": "projects/e-tims/src/polyfills.ts",
+            "tsConfig": "projects/e-tims/tsconfig.spec.json",
+            "karmaConfig": "projects/e-tims/karma.conf.js",
+            "assets": [
+              "projects/e-tims/src/favicon.ico",
+              "projects/e-tims/src/assets"
+            ],
+            "styles": [
+              "projects/e-tims/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/e-tims/tsconfig.app.json",
+              "projects/e-tims/tsconfig.spec.json",
+              "projects/e-tims/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/e-tims/e2e/protractor.conf.js",
+            "devServerTarget": "eTims:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "eTims:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "eTims"
+}
